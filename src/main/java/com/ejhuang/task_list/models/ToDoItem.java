@@ -23,7 +23,9 @@ public class ToDoItem {
 
     @Getter
     @Setter
+    @NotBlank(message = "Description is required")
     private String description;
+
     
     @Getter
     @Setter
