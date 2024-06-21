@@ -1,6 +1,7 @@
 package com.ejhuang.task_list.models;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +26,6 @@ public class ToDoItem {
     @Setter
     @NotBlank(message = "Description is required")
     private String description;
-
     
     @Getter
     @Setter
@@ -33,19 +33,29 @@ public class ToDoItem {
 
     @Getter
     @Setter
-    private Instant createdDate;
+    private String createdDate;
 
     @Getter
     @Setter
-    private Instant modifiedDate;
+    private String modifiedDate;
+
+    @Getter
+    @Setter
+    private String goalDate;
+
+    @Getter
+    @Setter
+    private int taskProirity;
 
     public ToDoItem() {}
 
     public ToDoItem(String description) {
         this.description = description;
         this.complete = false;
-        this.createdDate = Instant.now();
-        this.modifiedDate = Instant.now();
+        this.createdDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+        this.modifiedDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+        this.goalDate = LocalDateTime.now().plusDays(7).format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"));
+        this.taskProirity = 0;
     }
 
     @Override

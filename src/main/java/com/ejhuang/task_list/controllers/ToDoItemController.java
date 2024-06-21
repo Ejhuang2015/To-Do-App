@@ -1,7 +1,9 @@
 package com.ejhuang.task_list.controllers;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,7 @@ import jakarta.validation.Valid;
 @Controller
 public class ToDoItemController {
     private final Logger logger = LoggerFactory.getLogger(ToDoItemController.class);
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
 
     @Autowired
     private ToDoItemRepository toDoItemRepository;
@@ -44,8 +47,8 @@ public class ToDoItemController {
             return showView;
         }
 
-        toDoItem.setCreatedDate(Instant.now());
-        toDoItem.setModifiedDate(Instant.now());
+        toDoItem.setCreatedDate(LocalDateTime.now().format(formatter));
+        toDoItem.setModifiedDate(LocalDateTime.now().format(formatter));
         toDoItemRepository.save(toDoItem);
         
         ModelAndView showView =  new ModelAndView("redirect:/");
@@ -61,7 +64,7 @@ public class ToDoItemController {
             return showView;
         }
 
-        toDoItem.setModifiedDate(Instant.now());
+        toDoItem.setModifiedDate(LocalDateTime.now().format(formatter));
         toDoItemRepository.save(toDoItem);
         ModelAndView showView =  new ModelAndView("redirect:/");
         return showView;
